@@ -1,10 +1,10 @@
 import {getJira} from "./common.js";
 
-export const findNonAIComponent = async (baseDataList, jiraApiKey) => {
+export const findNonAIComponent = async (baseDataList, jiraApiKey, jiraUserName) => {
     const notProcessedSummaryList = baseDataList.filter(baseData => baseData.status === 'NOT_PROCESSED').map(baseData => baseData.summary);
     const idListString = notProcessedSummaryList.map(key => `summary ~ '${key}'`).join(' OR ');
     const jql = `project = NXT AND (${idListString})`;
-    const componentsNorFrontOfficeList = await getJira(jql, jiraApiKey);
+    const componentsNorFrontOfficeList = await getJira(jql, jiraApiKey, jiraUserName);
     baseDataList.filter(baseData => baseData.status === 'NOT_PROCESSED').map((baseData) => {
         const issue = componentsNorFrontOfficeList.find(issue => issue.summary === baseData.summary);
         if (issue) {

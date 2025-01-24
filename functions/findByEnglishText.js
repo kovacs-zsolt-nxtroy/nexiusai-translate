@@ -1,10 +1,10 @@
 import {getJira} from "./common.js";
 
-export const findByEnglishText = async (baseDataList, jiraApiKey) => {
+export const findByEnglishText = async (baseDataList, jiraApiKey, jiraUserName) => {
     const notProcessedEnList = baseDataList.filter(baseData => baseData.status === 'NOT_PROCESSED').map(baseData => baseData.en);
     const enListString = notProcessedEnList.map(key => `cf[10245] ~ '${key}'`).join(' OR ');
     const jql = `project = NXT AND (${enListString})`;
-    const jiraFindByEnglish = await getJira(jql, jiraApiKey);
+    const jiraFindByEnglish = await getJira(jql, jiraApiKey, jiraUserName);
     baseDataList.filter(baseDataFilter => baseDataFilter.status === 'NOT_PROCESSED').map((baseData) => {
         const issue = jiraFindByEnglish.find(issue => issue.en === baseData.en);
         if (issue) {
