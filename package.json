@@ -1,17 +1,31 @@
 {
-  "name": "nexiusaitranslate",
+  "name": "@nexius/nexiusai-localizationjira",
   "version": "1.0.0",
-  "description": "",
-  "main": "common/index.js",
+  "description": "Nexius AI Localization from Jira tickets",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "localizationjira": "./index.js"
+  },
+  "files": [
+    "functions/baseFileLanguageData.js",
+    "functions/common.js",
+    "functions/findByEnglishText.js",
+    "functions/findNonAIComponent.js",
+    "functions/getBaseLanguageData.js",
+    "functions/getComponentsFrontOfficeList.js",
+    "functions/getTranslateFormOpenAI.js",
+    "functions/signBaseDataFromComponentsFrontOffice.js",
+    "functions/translate.js",
+    "index.js"
+  ],
   "keywords": [],
   "author": "Kovács Zsolt",
   "license": "ISC",
   "dependencies": {
-    "@nexius/nx-localization-updater": "^2.1.0",
     "axios": "^1.7.9",
     "commander": "^13.1.0",
     "fast-xml-parser": "^4.5.1",
