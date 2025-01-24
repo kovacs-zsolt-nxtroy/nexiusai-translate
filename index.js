@@ -81,7 +81,7 @@ const fileProcessor = (fileName, trgLang, targetKey) => {
     const output = builder.build(sourceEnglishData);
     writeFileSync(fileName, output, 'utf8');
 }
-await fileProcessor('./src/locale/messages.hu-HU.xlf', 'hu-HU', 'hu');
+await fileProcessor('./src/locale/messages.hu.xlf', 'hu', 'hu');
 await fileProcessor('./src/locale/messages.de.xlf', 'de', 'de');
 await fileProcessor('./src/locale/messages.ro.xlf', 'ro', 'ro');
 await fileProcessor('./src/locale/messages.ru.xlf', 'ru', 'ru');
