@@ -1,0 +1,21 @@
+{
+  "name": "nexiusaitranslate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "common/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kovács Zsolt",
+  "license": "ISC",
+  "dependencies": {
+    "@nexius/nx-localization-updater": "^2.1.0",
+    "axios": "^1.7.9",
+    "commander": "^13.1.0",
+    "fast-xml-parser": "^4.5.1",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^3.3.2"
+  }
+}
