@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {getBaseLanguageData} from "./functions/getBaseLanguageData.js";
 import {getComponentsFrontOfficeList} from "./functions/getComponentsFrontOfficeList.js";
 import {signBaseDataFromComponentsFrontOffice} from "./functions/signBaseDataFromComponentsFrontOffice.js";
