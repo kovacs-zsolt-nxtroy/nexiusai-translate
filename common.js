@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-async function getJira(jql, apiToken, username) {
+export const getJira = async (jql, apiToken, username) => {
     const jiraUrl = 'https://nexiuslearning.atlassian.net/';
     const auth = Buffer.from(`${username}:${apiToken}`).toString('base64');
     const maxResultsPerPage = 100;
@@ -64,8 +64,4 @@ async function getJira(jql, apiToken, username) {
         }
     } while (allIssues.length < total);
     return items;
-}
-
-module.exports = {
-    getJira
 }

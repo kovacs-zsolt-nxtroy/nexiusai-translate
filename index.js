@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import {getBaseLanguageData} from "./functions/getBaseLanguageData.js";
-import {getComponentsFrontOfficeList} from "./functions/getComponentsFrontOfficeList.js";
-import {signBaseDataFromComponentsFrontOffice} from "./functions/signBaseDataFromComponentsFrontOffice.js";
+import {getBaseLanguageData} from "./getBaseLanguageData.js";
+import {getComponentsFrontOfficeList} from "./getComponentsFrontOfficeList.js";
+import {signBaseDataFromComponentsFrontOffice} from "./signBaseDataFromComponentsFrontOffice.js";
 import {XMLBuilder, XMLParser} from "fast-xml-parser";
 import {copyFileSync, readFileSync, writeFileSync} from 'node:fs';
 import {program} from "commander";
-import {findNonAIComponent} from "./functions/findNonAIComponent.js";
-import {translate} from "./functions/translate.js";
+import {findNonAIComponent} from "./findNonAIComponent.js";
+import {translate} from "./translate.js";
 
 program
     .option('--first')
