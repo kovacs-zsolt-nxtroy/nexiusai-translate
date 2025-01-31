@@ -11,7 +11,7 @@ export const getTranslateFormOpenAI = async (key, text, openAiKey) => {
                 },
                 {
                     "role": "user",
-                    "content": "Translate the english word " + text + " to Hungarian, German, Romanian, Turkish, Chinese, Russian"
+                    "content": "Translate the english word " + text + " to Hungarian, German, Romanian, Turkish, Chinese, Russian, do not translate the following words: \"sub module\""
                 }
             ],
             functions: [
