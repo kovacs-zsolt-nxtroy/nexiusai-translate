@@ -21,7 +21,6 @@ const openAIKey = program.opts().openAIKey;
 
 const createEnglish = () => {
     const fileName = './src/locale/messages.en-US.xlf';
-//    copyFileSync('./src/locale/messages.xlf', fileName);
     const xmlSource = readFileSync('./src/locale/messages.xlf', 'utf8');
     const options = {
         ignoreAttributes: false,
