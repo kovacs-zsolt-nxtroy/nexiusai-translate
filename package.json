@@ -21,6 +21,7 @@
     "getComponentsFrontOfficeList.js",
     "getTranslateFormOpenAI.js",
     "signBaseDataFromComponentsFrontOffice.js",
+    "readBaseXlfAndCreateBaseEnglish.js",
     "translate.js",
     "index.js"
   ],
