@@ -7,6 +7,8 @@ import {copyFileSync, readFileSync, writeFileSync} from 'node:fs';
 import {program} from "commander";
 import {findNonAIComponent} from "./findNonAIComponent.js";
 import {translate} from "./translate.js";
+import {createEnglishFileFromBaseFile} from "./readBaseXlfAndCreateBaseEnglish.js";
+import {changeStatusToToDo, frontOfficeComponents, updateJiraComponents} from "./common.js";
 
 program
     .option('--first')
@@ -19,30 +21,11 @@ const jiraApiKey = program.opts().jiraApiKey;
 const jiraUserName = program.opts().jiraUserName;
 const openAIKey = program.opts().openAIKey;
 
-const createEnglish = () => {
-    const fileName = './src/locale/messages.en-US.xlf';
-    const xmlSource = readFileSync('./src/locale/messages.xlf', 'utf8');
-    const options = {
-        ignoreAttributes: false,
-        attributeNamePrefix: "@@",
-        format: true
-    };
-    const parser = new XMLParser(options);
-    const sourceEnglishData = parser.parse(xmlSource);
-    sourceEnglishData.xliff['@@trgLang'] = 'en-US';
-    sourceEnglishData.xliff.file.unit.map((unitData) => {
-        unitData.segment.target = unitData.segment.source;
-        return unitData;
-    });
-    const builder = new XMLBuilder(options);
-    const output = builder.build(sourceEnglishData);
-    writeFileSync(fileName, output, 'utf8');
-}
-createEnglish();
-
+createEnglishFileFromBaseFile();
 let baseDataList = getBaseLanguageData();
 console.log('key count:', baseDataList.length);
 const componentsFrontOfficeList = await getComponentsFrontOfficeList(jiraApiKey, jiraUserName);
+
 console.log('jira front office count:', componentsFrontOfficeList.length);
 baseDataList = signBaseDataFromComponentsFrontOffice(baseDataList, componentsFrontOfficeList);
 console.log('front office find component:', baseDataList.filter(item => item.status === 'FOUND').length);
@@ -86,4 +69,15 @@ await fileProcessor('./src/locale/messages.ro.xlf', 'ro', 'ro');
 await fileProcessor('./src/locale/messages.ru.xlf', 'ru', 'ru');
 await fileProcessor('./src/locale/messages.tr.xlf', 'tr', 'tr');
 await fileProcessor('./src/locale/messages.zn.xlf', 'zn', 'zn');
-console.log('done');
+
+const addNexiusAIComponentList = baseDataList.filter(item => item.status === 'ADD_COMPONENT')
+addNexiusAIComponentList.forEach(async (item) => {
+    if (item.statusRaw.id === '10001') {
+        await changeStatusToToDo(item.key, jiraApiKey, jiraUserName);
+    }
+    await updateJiraComponents(item.key, jiraApiKey, jiraUserName, [
+            ...item.componentsRaw,
+            frontOfficeComponents
+        ]
+    )
+})
